@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>	
+</head>
+
+<body>
+	</br>	
+	<!-- control pannel -->
+	<div class="container" style="text-align:center;">
+		
+		<label class="login_label"><b>Mode:</b></label> 
+		<select class="mode">
+		  <option value="mode1">Load More Mode</option>
+		  <option value="mode2">Pagination Mode</option>
+		</select>
+		</br>
+				
+		<form class="mode1">				
+		  <ul>				
+		  	<li>
+		    	<label class="login_label">Total elements:</label>
+					<input class="input_text" type="text" name="total_elements" id="total_elements" />
+					<div class="default_value">*Defaults value: 13</div>
+		   	</li>
+		  	<li>
+		    	<label class="login_label">Columns:</label> 
+					<input class="input_text" type="text" name="columns" id="columns" />
+					<div class="default_value">*Defaults value: 4</div>	
+		   	</li>
+		   	<li>
+		    	<label class="login_label">Init Rows:</label>
+					<input class="input_text" type="text" name="init_rows" id="init_rows" />
+					<div class="default_value">*Defaults value: 3</div>
+		   	</li>
+		   	<li>
+		    	<label class="login_label">More Rows:</label>
+					<input class="input_text" type="text" name="load_more_rows" id="load_more_rows" />
+					<div class="default_value">*Defaults value: 1</div>
+		   	</li>
+		  </ul>
+		</form>
+		<form class="mode2">				
+		  <ul>				
+		  	<li>
+		    	<label class="login_label">Total elements:</label> 
+					<input class="input_text" type="text" name="total_elements" id="total_elements" />
+					<div class="default_value">*Defaults value: 13</div>
+		   	</li>
+		  	<li>
+		    	<label class="login_label">Page rows:</label> 
+					<input class="input_text" type="text" name="page_rows" id="page_rows" />
+					<div class="default_value">*Defaults value: 2</div>
+		   	</li>
+		   	<li>
+		    	<label class="login_label">Page cols:</label>
+					<input class="input_text" type="text" name="page_cols" id="page_cols" />
+					<div class="default_value">*Defaults value: 2</div>
+		   	</li>
+		  </ul>
+		</form>
+		<button id="submit">Reload</button>	
+	</div>
+	</br>
+	
+	<!-- widget is loaded here -->
+	<div id="widget" class="container"></div>
+			
+	<script type="text/javascript" src="js/reward_list_widget.js"></script>
+	<script type="text/javascript">
+		$('#widget').rewardlist({
+			total_elements:13,
+	 		columns:4,
+			load_more_rows:1,
+			init_rows:3,
+			page_rows:2,
+			page_cols:2,
+			loadmore_mode:true,
+			pagination_mode:false
+		});
+	</script>
+	
+	<!-- This triggers submit click. -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+		  $("#submit").on("click", function(){
+				// remove widget.
+				$("#widget").empty();
+				// restart widget with different parameter.
+				var total_elements = $("#total_elements").val()? $("#total_elements").val() : 13;
+				var columns = $("#columns").val()? $("#columns").val() : 4;
+				var load_more_rows = $("#load_more_rows").val()? $("#load_more_rows").val() : 1;
+				var init_rows = $("#init_rows").val()? $("#init_rows").val() : 3;
+				var page_rows = $("#page_rows").val()? $("#page_rows").val() : 2;
+				var page_cols = $("#page_cols").val()? $("#page_cols").val() : 2;				
+				var loadmore_mode = $(".mode").val() == "mode1" ? true : false;
+				var pagination_mode = $(".mode").val() == "mode2" ? true : false;
+
+				$('#widget').rewardlist({
+					total_elements:total_elements,
+			 		columns:columns,
+					load_more_rows:load_more_rows,
+					init_rows:init_rows,
+					page_rows:page_rows,
+					page_cols:page_cols,
+					loadmore_mode:loadmore_mode,
+					pagination_mode:pagination_mode
+				});
+			});
+			
+			$('.mode2').hide();
+			$('.mode').change(function() {
+				var mode_value = $('.mode').val();
+				$('.mode1').hide();
+				$('.mode2').hide();
+				$('.'+ mode_value).show();
+			});
+		});
+	</script>
+	
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>
+
+
+
+<!-- TODO: require js also load SprocketWidget -->
+<!-- <script src="js/require.js" defer async="true" ></script>
+<script src="js/require.js" data-main="js/reward_list_widget"></script> -->
+<!-- This part is popover, requires jquery  -->
+ <!-- // <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+ // <script type="text/javascript">
+ // 	$(document).ready(function() {
+ // 		$("table").popover({
+ // 			selector: ".hint",
+ // 			trigger: 'click',
+ // 			placement: 'bottom'	
+ // 		});
+ // 	});
+ // </script> -->
+	 
+	<!-- <div id="content">			
+		<table border='1px' class="table-style">
+		</table>
+	</div>
+	</br>
+	
+	<div style="text-align:center;">
+		<button class="load-more">Load More</button>
+	</div> -->
